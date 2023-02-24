@@ -1,5 +1,5 @@
-Script mendapatkan link dari file tiap Folder dengan ribuan File
-lewat AppScript
+//Script mendapatkan link dari file tiap Folder dengan ribuan File
+lewat AppScript//
 
 function listFolderContents(folder) {
   var subFolders = folder.getFolders();
