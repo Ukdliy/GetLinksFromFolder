@@ -1,0 +1,51 @@
+function getSubfolders() {
+  var mainFolderId = "1hyUrFAH_EAtVxIDmXYtZ7CkRRHJgSuRa";
+  var mainFolder = DriveApp.getFolderById(mainFolderId);
+  var subfolders = getAllSubfolders(mainFolder);
+  
+  var folderData = [];
+  
+  // Loop through each subfolder
+  for (var i = 0; i < subfolders.length; i++) {
+    var folder = subfolders[i];
+    var folderName = folder.getName();
+    var folderLink = folder.getUrl();
+    
+    folderData.push([folderName, folderLink]);
+  }
+  
+  // Log the folder data
+  Logger.log(folderData);
+  
+  // You can also write the folder data to a spreadsheet
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getActiveSheet();
+  
+  // Clear existing data in the sheet
+  sheet.clearContents();
+  
+  // Write the folder data to the sheet
+  sheet.getRange(1, 1, folderData.length, 2).setValues(folderData);
+}
+
+// Recursive function to get all subfolders of a folder
+function getAllSubfolders(folder) {
+  var subfolders = [];
+  var subfolderIterator = folder.getFolders();
+  
+  // Loop through each subfolder
+  while (subfolderIterator.hasNext()) {
+    var subfolder = subfolderIterator.next();
+    
+    // Add subfolder to the list
+    subfolders.push(subfolder);
+    
+    // Recursive call to get subfolders of the current subfolder
+    var subfolderSubfolders = getAllSubfolders(subfolder);
+    
+    // Add subfolders of the current subfolder to the list
+    subfolders = subfolders.concat(subfolderSubfolders);
+  }
+  
+  return subfolders;
+}
