@@ -1,5 +1,5 @@
 function getSubfolders() {
-  var mainFolderId = "1hyUrFAH_EAtVxIDmXYtZ7CkRRHJgSuRa";
+  var mainFolderId = "FOLDER_ID";
   var mainFolder = DriveApp.getFolderById(mainFolderId);
   var subfolders = getAllSubfolders(mainFolder);
   
